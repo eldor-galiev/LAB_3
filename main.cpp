@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string.h>
 
 using namespace std;
@@ -62,13 +63,13 @@ void console() {
         if (num_prog == 2) {
           createCity();
         }
-        /*if (num_prog == 3) {
-          printCities();
+        if (num_prog == 3) {
+          printCountries();
         }
         if (num_prog == 4) {
           printCities();
         }
-        if (num_prog == 5) {
+        /*if (num_prog == 5) {
           database_query();
         }*/
         
@@ -109,15 +110,16 @@ void createCity() {
     cin >> newCity->name;
     cout << " " << endl;
 
-    cout << "population >> ";
-    cin >> newCity -> population;
-    cout << " " << endl;
-
     cout << "country >> ";
     cin >> newCity -> country;
     cout << " " << endl;
 
     if (isFound(newCity -> country)) {
+
+      cout << "population >> ";
+      cin >> newCity -> population;
+      cout << " " << endl;
+
       FILE *Database_Cities = fopen(FILE_Cities, "a");
       if (Database_Cities == NULL) {
         cout << "Error" << endl;
@@ -128,6 +130,7 @@ void createCity() {
       fclose(Database_Cities);
     }
     else {
+      cout << "ERROR" << endl;
       cout << "You can enter the city only of the country that is already in the database." << endl;
       cout << " " << endl;
     }
@@ -139,19 +142,42 @@ bool isFound(char a[50]) {
       return false;
   }
   struct Countries Buffer;
-  int i =0;
   while(fread(&Buffer, sizeof(Countries), 1, readDateBase)){
       string CNTRY = Buffer.name;
       if (CNTRY == a) {
         return true;
-      }
+      } 
   }
   return false;
   
 }
 
-void printCountries();
-void printCities();
+void printCountries() {
+  printf("%8s %10s %12s\n", "Name", "Capital", "Area");
+  FILE *readDateBase = fopen(FILE_Countries,"r");
+  if (readDateBase==NULL){
+      return;
+  }
+  struct Countries Buffer;
+  int i =0;
+  while(fread(&Buffer, sizeof(Countries), 1, readDateBase)){
+    printf("%8s %10s %12d\n", Buffer.name, Buffer.capital, Buffer.area);
+    i++;
+  }
+  cout << " " << endl;
+}
+void printCities() {
+  printf("%8s %10s %12s\n", "Name", "Country", "Population");
+  FILE *readDateBase = fopen(FILE_Cities,"r");
+  if (readDateBase==NULL){
+      return;
+  }
+  struct Cities Buffer;
+  while(fread(&Buffer, sizeof(Cities), 1, readDateBase)){
+    printf("%8s %10s %12d\n", Buffer.name, Buffer.country, Buffer.population);
+  }
+  cout << " " << endl;
+}
 
 void database_query();
 void printCountries_with_condition();
