@@ -4,16 +4,6 @@
 
 using namespace std;
 
-void console();
-
-void createCountry();
-void createCity();
-
-bool isFound(char a[50]);
-
-void printCountries();
-void printCities();
-
 struct Countries {
     char name[50];
     char capital[50];
@@ -26,6 +16,21 @@ struct Cities {
     char country[50];
 };
 
+int count_Countries = 0;
+
+const char *FILE_Countries = "DataBase_Countries.dat";
+const char *FILE_Cities = "DataBase_Cities.dat";
+
+void console();
+
+void createCountry();
+void createCity();
+
+bool isFound(char a[50]);
+
+void printCountries();
+void printCities();
+
 void database_query();
 void requestDataBase_Countries(string field_1,string field_2,string field_3,string condition[3]);
 void requestDataBase_Cities(string field_1,string field_2,string field_3,string condition[3]);
@@ -33,12 +38,9 @@ void requestDataBase_Cities(string field_1,string field_2,string field_3,string 
 void printCountries_with_condition(string field_1,string field_2,string field_3, Countries Buffer[100], int i);
 void printCities_with_condition(string field_1,string field_2,string field_3, Cities Buffer[100], int i);
 
+void sorting_request();
+void sortingCountries_name(Countries All_Countries[100], int left, int right);
 
-
-const char *FILE_Countries = "DataBase_Countries.dat";
-const char *FILE_Cities = "DataBase_Cities.dat";
-
-int count_Countries = 0;
 
 int main() {
     console();
@@ -76,6 +78,9 @@ void console() {
         }
         if (num_prog == 5) {
             database_query();
+        }
+        if (num_prog == 6) {
+          sorting_request();
         }
 
     }
@@ -213,9 +218,6 @@ void database_query() {
           requestDataBase_Cities(field_1,field_2,field_3,condition);
         }
     }
-
-
-
 }
 
 void requestDataBase_Countries(string field_1,string field_2,string field_3,string condition[3]) {
@@ -435,3 +437,104 @@ void printCities_with_condition(string field_1,string field_2,string field_3, Ci
   }
   cout << " " << endl;
 }
+
+void sorting_request() {
+  string field_1, field_2,field_3;
+  string DataBase;
+  string condition_field;
+  int limit;
+
+  cout << "SELECT" << endl;
+  cin >> field_1;
+  cin >> field_2;
+  cin >> field_3;
+  cout << "FROM" << endl;
+  cin >> DataBase;
+  if ((DataBase != "Countries") && (DataBase != "countries") && (DataBase != "Cities") && (DataBase != "cities")) {
+      cout << "There is no such database.";
+  }
+  else {
+      cout << "ORDER BY" << endl;
+      cin >> condition_field;
+      cout << "LIMIT" << endl;
+      cin >> limit;    
+      cout << " " << endl;
+
+      cout << "Database Response:" << endl;
+      if ((DataBase == "Countries") || (DataBase == "countries")) {
+        FILE *readDateBase = fopen(FILE_Countries, "r");
+        if (readDateBase == NULL) {
+            return;
+        }
+        struct Countries Buffer[100];
+        int count_countries = 0;
+        int i = 0;
+        while (fread(&(Buffer[i]), sizeof(Countries), 1, readDateBase)) {
+            i++;
+        }
+
+        if (condition_field == "Name") {
+          sortingCountries_name(Buffer, 0, i-1);
+          for (int k = 0; k < limit; k++) {
+            printf("%10s %10s %10d", Buffer[k].name, Buffer[k].capital, Buffer[k].area);
+          }
+        }
+        /*if (condition_field == "Capital") {
+          sortingCountries_capital(All_Countries);
+        }
+        if (condition_field == "Area") {
+          sortingCountries_area(All_Countries);
+        }
+      }
+      else {
+        FILE *readDateBase = fopen(FILE_Cities, "r");
+        if (readDateBase == NULL) {
+            return;
+        }
+        struct Cities All_Cities[100];
+        
+
+        int i = 0;
+        while (fread(&(All_Cities[i]), sizeof(Cities), 1, readDateBase)) {
+            i++;
+        }
+        if (condition_field == "Name") {
+          sortingCities_name(All_Cities);
+        }
+        if (condition_field == "Country") {
+          sortingCities_country(All_Cities);
+        }
+        if (condition_field == "Population") {
+          sortingCities_population(All_Cities);
+        }*/
+      }
+  }
+}
+
+void sortingCountries_name(Countries All_Countries[100], int left, int right) {
+  int i = left, j = right;
+  Countries pivot, temp = All_Countries[(left+right)/2];
+  while (i <= j)
+  {
+      while ((All_Countries[i].name)[0] <= (pivot.name)[0]) i++;
+      while ((All_Countries[i].name)[0] >= (pivot.name)[0]) j--;
+
+      if (i <= j) {
+          if ((All_Countries[i].name)[0] >= (All_Countries[j].name)[0]) {
+              temp = All_Countries[i]; 
+              All_Countries[i] = All_Countries[j]; 
+              All_Countries[j] = temp;
+          }
+          i++; j--;
+      }
+  }
+  if (left < j) {
+    sortingCountries_name(All_Countries, left, j);
+  }
+  if (i < right) {
+    sortingCountries_name(All_Countries, i, right);
+  }
+}
+
+
+
