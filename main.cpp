@@ -40,6 +40,7 @@ void printCities_with_condition(string field_1,string field_2,string field_3, Ci
 
 void sorting_request();
 void sortingCountries_name(Countries All_Countries[100], int left, int right);
+void quickSort(Countries Buffer[100], int left, int right);
 
 
 int main() {
@@ -80,7 +81,7 @@ void console() {
             database_query();
         }
         if (num_prog == 6) {
-          sorting_request();
+            sorting_request();
         }
 
     }
@@ -215,7 +216,7 @@ void database_query() {
             requestDataBase_Countries(field_1,field_2,field_3,condition);
         }
         else {
-          requestDataBase_Cities(field_1,field_2,field_3,condition);
+            requestDataBase_Cities(field_1,field_2,field_3,condition);
         }
     }
 }
@@ -284,49 +285,49 @@ void requestDataBase_Countries(string field_1,string field_2,string field_3,stri
 }
 
 void printCountries_with_condition(string field_1,string field_2,string field_3, Countries Buffer[100], int i) {
-  if ((field_1 == "Name") && (field_2 == "Capital") && (field_3 == "Area")) {
-      printf("%8s %10s %12s\n", "Name", "Capital", "Area");
-      for (int j = 0; j < i; j++) {
-              printf("%8s %10s %12d\n", Buffer[j].name, Buffer[j].capital, Buffer[j].area);
-      }
-  }
-  if ((field_1 == "Name") && (field_2 == "Capital") && (field_3 == "-")) {
-      printf("%8s %10s\n", "Name", "Capital");
-      for (int j = 0; j < i; j++) {
-          printf("%8s %10s\n", Buffer[j].name, Buffer[j].capital);
-      }
-  }
-  if ((field_1 == "Name") && (field_2 == "Area") && (field_3 == "-")) {
-      printf("%8s %12s\n", "Name", "Area");
-      for (int j = 0; j < i; j++) {
-          printf("%8s %12d\n", Buffer[j].name, Buffer[j].area);
-      }
-  }
-  if ((field_1 == "Name") && (field_2 == "-") && (field_3 == "-")) {
-      printf("%8s\n", "Name");
-      for (int j = 0; j < i; j++) {
-          printf("%8s\n", Buffer[j].name);
-      }
-  }
-  if ((field_1 == "Capital") && (field_2 == "Area") && (field_3 == "-")) {
-      printf("%8s %12s\n", "Capital", "Area");
-      for (int j = 0; j < i; j++) {
-          printf("%10s %12d\n", Buffer[j].capital, Buffer[j].area);
-      }
-  }
-  if ((field_1 == "Capital") && (field_2 == "-") && (field_3 == "-")) {
-      printf("%10s\n", "Capital");
-      for (int j = 0; j < i; j++) {
-          printf("%10s\n", Buffer[j].capital);
-      }
-  }
-  if ((field_1 == "Area") && (field_2 == "-") && (field_3 == "-")) {
-      printf("%12s\n", "Area");
-      for (int j = 0; j < i; j++) {
-          printf("%12d\n", Buffer[j].area);
-      }
-  }
-  cout << " " << endl;
+    if ((field_1 == "Name") && (field_2 == "Capital") && (field_3 == "Area")) {
+        printf("%8s %10s %12s\n", "Name", "Capital", "Area");
+        for (int j = 0; j < i; j++) {
+            printf("%8s %10s %12d\n", Buffer[j].name, Buffer[j].capital, Buffer[j].area);
+        }
+    }
+    if ((field_1 == "Name") && (field_2 == "Capital") && (field_3 == "-")) {
+        printf("%8s %10s\n", "Name", "Capital");
+        for (int j = 0; j < i; j++) {
+            printf("%8s %10s\n", Buffer[j].name, Buffer[j].capital);
+        }
+    }
+    if ((field_1 == "Name") && (field_2 == "Area") && (field_3 == "-")) {
+        printf("%8s %12s\n", "Name", "Area");
+        for (int j = 0; j < i; j++) {
+            printf("%8s %12d\n", Buffer[j].name, Buffer[j].area);
+        }
+    }
+    if ((field_1 == "Name") && (field_2 == "-") && (field_3 == "-")) {
+        printf("%8s\n", "Name");
+        for (int j = 0; j < i; j++) {
+            printf("%8s\n", Buffer[j].name);
+        }
+    }
+    if ((field_1 == "Capital") && (field_2 == "Area") && (field_3 == "-")) {
+        printf("%8s %12s\n", "Capital", "Area");
+        for (int j = 0; j < i; j++) {
+            printf("%10s %12d\n", Buffer[j].capital, Buffer[j].area);
+        }
+    }
+    if ((field_1 == "Capital") && (field_2 == "-") && (field_3 == "-")) {
+        printf("%10s\n", "Capital");
+        for (int j = 0; j < i; j++) {
+            printf("%10s\n", Buffer[j].capital);
+        }
+    }
+    if ((field_1 == "Area") && (field_2 == "-") && (field_3 == "-")) {
+        printf("%12s\n", "Area");
+        for (int j = 0; j < i; j++) {
+            printf("%12d\n", Buffer[j].area);
+        }
+    }
+    cout << " " << endl;
 }
 
 void requestDataBase_Cities(string field_1,string field_2,string field_3,string condition[3]) {
@@ -393,91 +394,90 @@ void requestDataBase_Cities(string field_1,string field_2,string field_3,string 
 }
 
 void printCities_with_condition(string field_1,string field_2,string field_3, Cities Buffer[100], int i) {
-  if ((field_1 == "Name") && (field_2 == "Country") && (field_3 == "Population")) {
-      printf("%8s %10s %12s\n", "Name", "Country", "Population");
-      for (int j = 0; j < i; j++) {
-              printf("%8s %10s %12d\n", Buffer[j].name, Buffer[j].country, Buffer[j].population);
-      }
-  }
-  if ((field_1 == "Name") && (field_2 == "Country") && (field_3 == "-")) {
-      printf("%8s %10s\n", "Name", "Country");
-      for (int j = 0; j < i; j++) {
-          printf("%8s %10s\n", Buffer[j].name, Buffer[j].country);
-      }
-  }
-  if ((field_1 == "Name") && (field_2 == "Population") && (field_3 == "-")) {
-      printf("%8s %12s\n", "Name", "Population");
-      for (int j = 0; j < i; j++) {
-          printf("%8s %12d\n", Buffer[j].name, Buffer[j].population);
-      }
-  }
-  if ((field_1 == "Name") && (field_2 == "-") && (field_3 == "-")) {
-      printf("%8s\n", "Name");
-      for (int j = 0; j < i; j++) {
-          printf("%8s\n", Buffer[j].name);
-      }
-  }
-  if ((field_1 == "Country") && (field_2 == "Population") && (field_3 == "-")) {
-      printf("%8s %12s\n", "Country", "Population");
-      for (int j = 0; j < i; j++) {
-          printf("%10s %12d\n", Buffer[j].country, Buffer[j].population);
-      }
-  }
-  if ((field_1 == "Country") && (field_2 == "-") && (field_3 == "-")) {
-      printf("%10s\n", "Country");
-      for (int j = 0; j < i; j++) {
-          printf("%10s\n", Buffer[j].country);
-      }
-  }
-  if ((field_1 == "Population") && (field_2 == "-") && (field_3 == "-")) {
-      printf("%12s\n", "Population");
-      for (int j = 0; j < i; j++) {
-          printf("%12d\n", Buffer[j].population);
-      }
-  }
-  cout << " " << endl;
+    if ((field_1 == "Name") && (field_2 == "Country") && (field_3 == "Population")) {
+        printf("%8s %10s %12s\n", "Name", "Country", "Population");
+        for (int j = 0; j < i; j++) {
+            printf("%8s %10s %12d\n", Buffer[j].name, Buffer[j].country, Buffer[j].population);
+        }
+    }
+    if ((field_1 == "Name") && (field_2 == "Country") && (field_3 == "-")) {
+        printf("%8s %10s\n", "Name", "Country");
+        for (int j = 0; j < i; j++) {
+            printf("%8s %10s\n", Buffer[j].name, Buffer[j].country);
+        }
+    }
+    if ((field_1 == "Name") && (field_2 == "Population") && (field_3 == "-")) {
+        printf("%8s %12s\n", "Name", "Population");
+        for (int j = 0; j < i; j++) {
+            printf("%8s %12d\n", Buffer[j].name, Buffer[j].population);
+        }
+    }
+    if ((field_1 == "Name") && (field_2 == "-") && (field_3 == "-")) {
+        printf("%8s\n", "Name");
+        for (int j = 0; j < i; j++) {
+            printf("%8s\n", Buffer[j].name);
+        }
+    }
+    if ((field_1 == "Country") && (field_2 == "Population") && (field_3 == "-")) {
+        printf("%8s %12s\n", "Country", "Population");
+        for (int j = 0; j < i; j++) {
+            printf("%10s %12d\n", Buffer[j].country, Buffer[j].population);
+        }
+    }
+    if ((field_1 == "Country") && (field_2 == "-") && (field_3 == "-")) {
+        printf("%10s\n", "Country");
+        for (int j = 0; j < i; j++) {
+            printf("%10s\n", Buffer[j].country);
+        }
+    }
+    if ((field_1 == "Population") && (field_2 == "-") && (field_3 == "-")) {
+        printf("%12s\n", "Population");
+        for (int j = 0; j < i; j++) {
+            printf("%12d\n", Buffer[j].population);
+        }
+    }
+    cout << " " << endl;
 }
 
 void sorting_request() {
-  string field_1, field_2,field_3;
-  string DataBase;
-  string condition_field;
-  int limit;
+    string field_1, field_2,field_3;
+    string DataBase;
+    string condition_field;
+    int limit;
 
-  cout << "SELECT" << endl;
-  cin >> field_1;
-  cin >> field_2;
-  cin >> field_3;
-  cout << "FROM" << endl;
-  cin >> DataBase;
-  if ((DataBase != "Countries") && (DataBase != "countries") && (DataBase != "Cities") && (DataBase != "cities")) {
-      cout << "There is no such database.";
-  }
-  else {
-      cout << "ORDER BY" << endl;
-      cin >> condition_field;
-      cout << "LIMIT" << endl;
-      cin >> limit;    
-      cout << " " << endl;
+    cout << "SELECT" << endl;
+    cin >> field_1;
+    cin >> field_2;
+    cin >> field_3;
+    cout << "FROM" << endl;
+    cin >> DataBase;
+    if ((DataBase != "Countries") && (DataBase != "countries") && (DataBase != "Cities") && (DataBase != "cities")) {
+        cout << "There is no such database.";
+    }
+    else {
+        cout << "ORDER BY" << endl;
+        cin >> condition_field;
+        cout << "LIMIT" << endl;
+        cin >> limit;
+        cout << " " << endl;
 
-      cout << "Database Response:" << endl;
-      if ((DataBase == "Countries") || (DataBase == "countries")) {
-        FILE *readDateBase = fopen(FILE_Countries, "r");
-        if (readDateBase == NULL) {
-            return;
-        }
-        struct Countries Buffer[100];
-        int count_countries = 0;
-        int i = 0;
-        while (fread(&(Buffer[i]), sizeof(Countries), 1, readDateBase)) {
-            i++;
-        }
+        cout << "Database Response:" << endl;
+        if ((DataBase == "Countries") || (DataBase == "countries")) {
+            FILE *readDateBase = fopen(FILE_Countries, "r");
+            if (readDateBase == NULL) {
+                return;
+            }
+            struct Countries Buffer[100];
+            int count_countries = 0;
+            int i = 0;
+            while (fread(&(Buffer[i]), sizeof(Countries), 1, readDateBase)) {
+                i++;
+            }
 
-        if (condition_field == "Name") {
-          sortingCountries_name(Buffer, 0, i-1);
-          for (int k = 0; k < limit; k++) {
-            printf("%10s %10s %10d", Buffer[k].name, Buffer[k].capital, Buffer[k].area);
-          }
+            if (condition_field == "Name") {
+                quickSort(Buffer, 0, i-1);
+                printCountries_with_condition(field_1, field_2, field_3, Buffer, limit);
+            }
         }
         /*if (condition_field == "Capital") {
           sortingCountries_capital(All_Countries);
@@ -492,7 +492,7 @@ void sorting_request() {
             return;
         }
         struct Cities All_Cities[100];
-        
+
 
         int i = 0;
         while (fread(&(All_Cities[i]), sizeof(Cities), 1, readDateBase)) {
@@ -507,34 +507,83 @@ void sorting_request() {
         if (condition_field == "Population") {
           sortingCities_population(All_Cities);
         }*/
-      }
-  }
-}
-
-void sortingCountries_name(Countries All_Countries[100], int left, int right) {
-  int i = left, j = right;
-  Countries pivot, temp = All_Countries[(left+right)/2];
-  while (i <= j)
-  {
-      while ((All_Countries[i].name)[0] <= (pivot.name)[0]) i++;
-      while ((All_Countries[i].name)[0] >= (pivot.name)[0]) j--;
-
-      if (i <= j) {
-          if ((All_Countries[i].name)[0] >= (All_Countries[j].name)[0]) {
-              temp = All_Countries[i]; 
-              All_Countries[i] = All_Countries[j]; 
-              All_Countries[j] = temp;
-          }
-          i++; j--;
-      }
-  }
-  if (left < j) {
-    sortingCountries_name(All_Countries, left, j);
-  }
-  if (i < right) {
-    sortingCountries_name(All_Countries, i, right);
-  }
+    }
 }
 
 
+void sortingCountries_name(Countries Buffer[100], int left, int right) {
+    Countries All_Countries[100];
+    for (int k = 0; k < 100; k++) {
+        All_Countries[k] = Buffer[k];
+    }
+    int i = left, j = right;
+    Countries pivot, temp;
+    pivot = All_Countries[(left+right)/2];
+    temp = All_Countries[(left+right)/2];
+    while (i <= j)
+    {
+        while (((All_Countries[i].name)[0] <= (pivot.name)[0]) && (All_Countries[i].area > 0)) {
+            i++;
+        }
+        while (((All_Countries[j].name)[0] > (pivot.name)[0]) && (All_Countries[j].area > 0)) {
+            j--;
+        }
+
+        if (i <= j) {
+            if ((All_Countries[i].name)[0] >= (All_Countries[j].name)[0]) {
+                temp = All_Countries[i];
+                All_Countries[i] = All_Countries[j];
+                All_Countries[j] = temp;
+            }
+            i++;
+            j--;
+        }
+    }
+    if (left < j) {
+        sortingCountries_name(All_Countries, left, j);
+    }
+    if (i < right) {
+        sortingCountries_name(All_Countries, i, right);
+    }
+}
+
+void quickSort(Countries Buffer[100], int left, int right)
+{
+    Countries All_Countries[100];
+    for (int k = 0; k < 100; k++) {
+        All_Countries[k] = Buffer[k];
+    }
+    Countries pivot; // разрешающий элемент
+    int l_hold = left; //левая граница
+    int r_hold = right; // правая граница
+    pivot = All_Countries[left];
+    while (left < right) // пока границы не сомкнутся
+    {
+        while (((All_Countries[right].name)[0] >= (pivot.name)[0]) && (left < right))
+            right--; // сдвигаем правую границу пока элемент [right] больше [pivot]
+        if (left != right) // если границы не сомкнулись
+        {
+            All_Countries[left] = All_Countries[right]; // перемещаем элемент [right] на место разрешающего
+            left++; // сдвигаем левую границу вправо
+        }
+        while (((All_Countries[left].name)[0] <= (pivot.name)[0]) && (left < right))
+            left++; // сдвигаем левую границу пока элемент [left] меньше [pivot]
+        if (left != right) // если границы не сомкнулись
+        {
+            All_Countries[right] = All_Countries[left]; // перемещаем элемент [left] на место [right]
+            right--; // сдвигаем правую границу вправо
+        }
+    }
+    All_Countries[left] = pivot; // ставим разрешающий элемент на место
+    int count = left;
+    left = l_hold;
+    right = r_hold;
+    for (int k = 0; k < 100; k++) {
+        Buffer[k] = All_Countries[k];
+    }
+    if (left < count) // Рекурсивно вызываем сортировку для левой и правой части массива
+        quickSort(Buffer, left, count - 1);
+    if (right > count)
+        quickSort(Buffer, count + 1, right);
+}
 
