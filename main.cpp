@@ -486,7 +486,7 @@ void sorting_request() {
     else {
         cout << "ORDER BY" << endl;
         cin >> condition_field;
-        if ((condition_field != "Name") && (condition_field != "Capital") && (condition_field != "Area")) {
+        if ((condition_field != "Name") && (condition_field != "Capital") && (condition_field != "Area") && (condition_field != "Country") && (condition_field != "Population")) {
           cout << "ERROR" << endl;
           cout << "There is no such field" << endl;
           return;
@@ -555,20 +555,20 @@ void sortingCountries_name(Countries Buffer[100], int left, int right) {
     for (int k = 0; k < 100; k++) {
         All_Countries[k] = Buffer[k];
     }
-    Countries pivot; 
+    Countries basic_element; 
     int l_hold = left; 
     int r_hold = right; 
-    pivot = All_Countries[left];
+    basic_element = All_Countries[left];
     while (left < right) 
     {
-        while (((All_Countries[right].name)[0] >= (pivot.name)[0]) && (left < right))
+        while (((All_Countries[right].name)[0] >= (basic_element.name)[0]) && (left < right))
             right--; 
         if (left != right) 
         {
             All_Countries[left] = All_Countries[right]; 
             left++; 
         }
-        while (((All_Countries[left].name)[0] <= (pivot.name)[0]) && (left < right))
+        while (((All_Countries[left].name)[0] <= (basic_element.name)[0]) && (left < right))
             left++; 
         if (left != right) 
         {
@@ -576,7 +576,7 @@ void sortingCountries_name(Countries Buffer[100], int left, int right) {
             right--; 
         }
     }
-    All_Countries[left] = pivot; 
+    All_Countries[left] = basic_element; 
     int count = left;
     left = l_hold;
     right = r_hold;
@@ -594,20 +594,20 @@ void sortingCountries_capital(Countries Buffer[100], int left, int right) {
     for (int k = 0; k < 100; k++) {
         All_Countries[k] = Buffer[k];
     }
-    Countries pivot; 
+    Countries basic_element; 
     int l_hold = left; 
     int r_hold = right; 
-    pivot = All_Countries[left];
+    basic_element = All_Countries[left];
     while (left < right) 
     {
-        while (((All_Countries[right].capital)[0] >= (pivot.capital)[0]) && (left < right))
+        while (((All_Countries[right].capital)[0] >= (basic_element.capital)[0]) && (left < right))
             right--; 
         if (left != right) 
         {
             All_Countries[left] = All_Countries[right]; 
             left++; 
         }
-        while (((All_Countries[left].capital)[0] <= (pivot.capital)[0]) && (left < right))
+        while (((All_Countries[left].capital)[0] <= (basic_element.capital)[0]) && (left < right))
             left++; 
         if (left != right) 
         {
@@ -615,7 +615,7 @@ void sortingCountries_capital(Countries Buffer[100], int left, int right) {
             right--; 
         }
     }
-    All_Countries[left] = pivot; 
+    All_Countries[left] = basic_element; 
     int count = left;
     left = l_hold;
     right = r_hold;
@@ -632,20 +632,20 @@ void sortingCountries_area(Countries Buffer[100], int left, int right) {
     for (int k = 0; k < 100; k++) {
         All_Countries[k] = Buffer[k];
     }
-    Countries pivot; 
+    Countries basic_element; 
     int l_hold = left; 
     int r_hold = right; 
-    pivot = All_Countries[left];
+    basic_element = All_Countries[left];
     while (left < right) 
     {
-        while ((All_Countries[right].area >= pivot.area) && (left < right))
+        while ((All_Countries[right].area >= basic_element.area) && (left < right))
             right--; 
         if (left != right) 
         {
             All_Countries[left] = All_Countries[right]; 
             left++; 
         }
-        while ((All_Countries[left].area <= pivot.area) && (left < right))
+        while ((All_Countries[left].area <= basic_element.area) && (left < right))
             left++; 
         if (left != right) 
         {
@@ -653,7 +653,7 @@ void sortingCountries_area(Countries Buffer[100], int left, int right) {
             right--; 
         }
     }
-    All_Countries[left] = pivot; 
+    All_Countries[left] = basic_element; 
     int count = left;
     left = l_hold;
     right = r_hold;
@@ -671,20 +671,20 @@ void sortingCities_name(Cities Buffer[100], int left, int right) {
     for (int k = 0; k < 100; k++) {
         All_Cities[k] = Buffer[k];
     }
-    Cities pivot;
+    Cities basic_element;
     int l_hold = left;
     int r_hold = right;
-    pivot = All_Cities[left];
+    basic_element = All_Cities[left];
     while (left < right)
     {
-        while (((All_Cities[right].name)[0] >= (pivot.name)[0]) && (left < right))
+        while (((All_Cities[right].name)[0] >= (basic_element.name)[0]) && (left < right))
             right--;
         if (left != right)
         {
             All_Cities[left] = All_Cities[right];
             left++;
         }
-        while (((All_Cities[left].name)[0] <= (pivot.name)[0]) && (left < right))
+        while (((All_Cities[left].name)[0] <= (basic_element.name)[0]) && (left < right))
             left++;
         if (left != right)
         {
@@ -692,7 +692,7 @@ void sortingCities_name(Cities Buffer[100], int left, int right) {
             right--;
         }
     }
-    All_Cities[left] = pivot;
+    All_Cities[left] = basic_element;
     int count = left;
     left = l_hold;
     right = r_hold;
@@ -710,20 +710,20 @@ void sortingCities_country(Cities Buffer[100], int left, int right) {
     for (int k = 0; k < 100; k++) {
         All_Cities[k] = Buffer[k];
     }
-    Cities pivot;
+    Cities basic_element;
     int l_hold = left;
     int r_hold = right;
-    pivot = All_Cities[left];
+    basic_element = All_Cities[left];
     while (left < right)
     {
-        while (((All_Cities[right].country)[0] >= (pivot.country)[0]) && (left < right))
+        while (((All_Cities[right].country)[0] >= (basic_element.country)[0]) && (left < right))
             right--;
         if (left != right)
         {
             All_Cities[left] = All_Cities[right];
             left++;
         }
-        while (((All_Cities[left].country)[0] <= (pivot.country)[0]) && (left < right))
+        while (((All_Cities[left].country)[0] <= (basic_element.country)[0]) && (left < right))
             left++;
         if (left != right)
         {
@@ -731,7 +731,7 @@ void sortingCities_country(Cities Buffer[100], int left, int right) {
             right--;
         }
     }
-    All_Cities[left] = pivot;
+    All_Cities[left] = basic_element;
     int count = left;
     left = l_hold;
     right = r_hold;
@@ -748,20 +748,20 @@ void sortingCities_population(Cities Buffer[100], int left, int right) {
     for (int k = 0; k < 100; k++) {
         All_Cities[k] = Buffer[k];
     }
-    Cities pivot;
+    Cities basic_element;
     int l_hold = left;
     int r_hold = right;
-    pivot = All_Cities[left];
+    basic_element = All_Cities[left];
     while (left < right)
     {
-        while ((All_Cities[right].population >= pivot.population) && (left < right))
+        while ((All_Cities[right].population >= basic_element.population) && (left < right))
             right--;
         if (left != right)
         {
             All_Cities[left] = All_Cities[right];
             left++;
         }
-        while ((All_Cities[left].population <= pivot.population) && (left < right))
+        while ((All_Cities[left].population <= basic_element.population) && (left < right))
             left++;
         if (left != right)
         {
@@ -769,7 +769,7 @@ void sortingCities_population(Cities Buffer[100], int left, int right) {
             right--;
         }
     }
-    All_Cities[left] = pivot;
+    All_Cities[left] = basic_element;
     int count = left;
     left = l_hold;
     right = r_hold;
