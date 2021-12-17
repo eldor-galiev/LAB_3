@@ -16,7 +16,6 @@ struct Cities {
     char country[50];
 };
 
-int count_Countries = 0;
 
 const char *FILE_Countries = "DataBase_Countries.dat";
 const char *FILE_Cities = "DataBase_Cities.dat";
@@ -116,7 +115,6 @@ void createCountry() {
         fwrite(newCountry, sizeof(Countries), 1, Database_Countries);
     }
     fclose(Database_Countries);
-    count_Countries++;
 
 }
 void createCity() {
@@ -504,7 +502,6 @@ void sorting_request() {
                 return;
             }
             struct Countries Buffer[100];
-            int count_countries = 0;
             int i = 0;
             while (fread(&(Buffer[i]), sizeof(Countries), 1, readDateBase)) {
                 i++;
